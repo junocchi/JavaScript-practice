@@ -10,20 +10,15 @@ function divideArray(num) {
     }
   }
 
-  // printArray("Even numbers", evenNums)
-  // printArray("Odd numbers", oddNums)
-
-  console.log("Even numbers:"); 
-  console.log(evenNums.sort().join("\n") || "None");
-  console.log("Odd numbers:");
-  console.log(oddNums.sort().join("\n") || "None");
+  printArray("Even numbers", evenNums);
+  printArray("Odd numbers", oddNums);
 }
 
-// function printArray(header, array) {
-//   console.log(header + ":");
-//   console.log(array.sort().join("\n") || "None");
-// }
+function printArray(header, array) {
+  console.log(header + ":");
+  console.log(array.sort((a, b) => a - b).join("\n") || "None");
+}
 
-
-divideArray([4, 2, 9, 1, 8]);
+divideArray([4, 2, 3, 1, 15, 1, 9, 7]);
 divideArray([4, 2, 8]);
+divideArray([20,4,16,100,90,72,-18,56,42,88]);
