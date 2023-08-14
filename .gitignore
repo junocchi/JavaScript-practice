@@ -1,1 +1,16 @@
 **/.DS_Store
+.DS_Store
+.metadata
+.metadata/.*
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+/.metadata/
+.metadata/
+.metadata/.plugins/
+.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi
+
+### VS Code ###
+.vscode/
