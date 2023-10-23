@@ -62,3 +62,36 @@ console.log(ageLila > ageMari); // true
 const isFullAge = ageMari >= 18;
 console.log(isFullAge); // true
 console.log(now - 1995 > now - 1987); // false
+
+console.log(ageMari, ageLila);
+console.log(now - 1995 > now - 1987); // false
+
+const averageAge = (ageLila + ageMari) / 2;
+console.log(averageAge);
+
+console.log("----------------");
+
+populationUK = 67000000;
+const splitPopulation = populationUK / 2;
+console.log(splitPopulation);
+
+populationUK++;
+console.log(populationUK);
+
+const populationFinland = 6000000;
+let hasMorePeople = populationUK > populationFinland;
+console.log(hasMorePeople);
+
+const populationOfSomeCountry = 33000000;
+hasMorePeople = populationUK > populationOfSomeCountry;
+console.log(hasMorePeople);
+
+const description =
+  "The " +
+  country +
+  " is in " +
+  continent +
+  ", and its " +
+  population +
+  " people speak English";
+console.log(description);
