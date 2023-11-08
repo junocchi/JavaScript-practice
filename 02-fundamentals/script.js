@@ -549,3 +549,9 @@ console.log(`The average total is ${calcAverage(totals)}`);
 // For bill 86 + tips 12.9, the total is 98.9
 // For bill 52 + tips 7.8, the total is 59.8
 // The average total is 275.19
+
+console.log("---------- For Loop exercise --------------");
+
+for (let i = 1; i <= 50; i++) {
+  console.log(`Voter number ${i} is currently voting`);
+}
