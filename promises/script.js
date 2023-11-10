@@ -190,7 +190,7 @@
 //     },
 //   );
 
-console.log("----------- Fetching API -------------");
+// console.log("----------- Fetching API -------------");
 
 // first query parameter is the movie title, the second argument is the year of release, and then we add our personal free API key
 // fetch("https://www.omdbapi.com/?s=batman&y=2018&apikey=89f2da9e").then(
@@ -204,8 +204,123 @@ console.log("----------- Fetching API -------------");
 Response {type: 'cors', url: 'https://www.omdbapi.com/?s=batman&y=2018&apikey=89f2da9e', redirected: false, status: 200, ok: true, …}
 */
 
-fetch("https://www.omdbapi.com/?s=batman&y=2018&apikey=89f2da9e")
-  .then((response) => response.json())
-  .then((data) => console.log(data));
+// fetch("https://www.omdbapi.com/?s=batman&y=2018&apikey=89f2da9e")
+//   .then((response) => response.json())
+//   .then((data) => console.log(data));
 
-console.log("----------- Avoiding callback hell -------------");
+// console.log("----------- Avoiding callback hell -------------");
+
+// function calculateSquare(number, callback) {
+//   const promise = new Promise((resolve, reject) => {
+//     setTimeout(function () {
+//       if (typeof number !== "number") {
+//         return reject(new Error("Argument of type number is expected"));
+//       }
+//       const result = number * number;
+//       resolve(result);
+//     }, 1000);
+//   });
+//   return promise;
+// }
+
+// calculateSquare(1)
+//   .then((value) => {
+//     console.log(value);
+//     return calculateSquare(2);
+//   })
+//   .then((value) => {
+//     console.log(value);
+//     return calculateSquare(3);
+//   })
+//   .then((value) => {
+//     console.log(value);
+//     return calculateSquare(4);
+//   })
+//   .then((value) => {
+//     console.log(value);
+//     return calculateSquare(5);
+//   })
+//   .then((value) => {
+//     console.log(value);
+//     return calculateSquare(6);
+//   });
+
+// console.log("----------- Handling Promise Rejections -------------");
+
+// function calculateSquare(number, callback) {
+//   const promise = new Promise((resolve, reject) => {
+//     setTimeout(function () {
+//       if (typeof number !== "number") {
+//         return reject(new Error("Argument of type number is expected"));
+//       }
+//       const result = number * number;
+//       resolve(result);
+//     }, 1000);
+//   });
+//   return promise;
+// }
+
+// calculateSquare(1)
+//   .then((value) => {
+//     console.log(value);
+//     return calculateSquare(2);
+//   })
+//   .then((value) => {
+//     return new Promise((resolve, reject) => {
+//       return reject("Something went wrong");
+//     });
+//     console.log(value);
+//   })
+//   .catch((reason) => {
+//     console.log("error happened: " + reason);
+//   });
+// // 1
+// //error happened: Error: Something went wrong
+
+// console.log("----------- Promise.resolve and Promise.reject -------------");
+
+// function logToConsole(somePromise) {
+//   somePromise.then((value) => console.log(value));
+// }
+
+// const somePromise = new Promise((resolve, reject) => resolve("Hello"));
+// const value = "Getting a string from a promisified value";
+// const promisifiedValue = Promise.resolve(value);
+// const promisifiedValue2 = Promise.resolve("Promisifying a string on-the-go");
+
+// logToConsole(somePromise); // Hello
+// //logToConsole(value); // TypeError: somePromise.then is not a function
+// logToConsole(promisifiedValue); // Getting a string from a promisified value
+// logToConsole(promisifiedValue2); // Promisifying a string on-the-go
+
+// const rejectedPromise = Promise.reject(new Error("Some error")); // Error: Some error
+
+// console.log("----------- Promise.all -------------");
+
+// // Declare 3 functions which imitate the Dealer API
+// function askFirstDealer() {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => resolve(8000), 3000);
+//   });
+// }
+// function askSecondDealer() {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => resolve(12000), 5000);
+//   });
+// }
+// function askThirdDealer() {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => resolve(10000), 8000);
+//   });
+// }
+
+// // Invoke these 3 functions in parallel
+// Promise.all([askFirstDealer(), askSecondDealer(), askThirdDealer()]).then(
+//   (prices) => {
+//     console.log(prices);
+//   },
+// );
+// // After 8 seconds, it prints
+// // [ 8000, 12000, 10000 ]
+
+console.log("----------- Handling rejections with Promise.all -------------");
