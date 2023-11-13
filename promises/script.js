@@ -323,4 +323,276 @@ Response {type: 'cors', url: 'https://www.omdbapi.com/?s=batman&y=2018&apikey=8
 // // After 8 seconds, it prints
 // // [ 8000, 12000, 10000 ]
 
-console.log("----------- Handling rejections with Promise.all -------------");
+// console.log("----------- Handling rejections with Promise.all -------------");
+
+// // Declare 3 functions which imitate the Dealer API
+// function askFirstDealer() {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => resolve(8000), 3000);
+//   });
+// }
+// // askSecondDealer returns a promise that becomes rejected after 5 seconds
+// function askSecondDealer() {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => reject("Not suitable car"), 5000);
+//   });
+// }
+// function askThirdDealer() {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => resolve(10000), 8000);
+//   });
+// }
+
+// The promise returned by Promise.all
+// will be rejected with a reason 'Not suitable car'.
+// Promise.all([askFirstDealer(), askSecondDealer(), askThirdDealer()])
+//   .then((prices) => {
+//     console.log(prices);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+
+// This time Promise.all will return a resolved promise
+// Promise.all([
+//   askFirstDealer().catch((error) => {
+//     return error;
+//   }),
+//   askSecondDealer().catch((error) => {
+//     return error;
+//   }),
+//   askThirdDealer().catch((error) => {
+//     return error;
+//   }),
+// ])
+//   .then((prices) => {
+//     console.log(prices);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+
+// This time Promise.all will be rejected immediately
+// Promise.all([
+//   askFirstDealer().catch((error) => {
+//     return error;
+//   }),
+//   askSecondDealer().catch((error) => {
+//     return error;
+//   }),
+//   askThirdDealer().catch((error) => {
+//     return error;
+//   }),
+//   Promise.reject("rejected for some reason"),
+// ]).then((prices) => {
+//   console.log(prices);
+// });
+
+// console.log("------- Promise.race ---------");
+// const askJohn = () => {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => resolve("John: Yes, I've got an extra pen."), 3000);
+//   });
+// };
+
+// const askEugene = () => {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => reject("Eugene: Sorry, I only have one."), 5000);
+//   });
+// };
+
+// const askSusy = () => {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => resolve("Susy: Yes, I have a pen for you."), 2000);
+//   });
+// };
+
+// Promise.race([askJohn(), askEugene(), askSusy()]).then((value) => {
+//   console.log(value);
+// });
+// // Susy: Yes, I have a pen for you.
+
+// console.log("------- Promise.race version 2---------");
+// const askJohn = () => {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => resolve("John: Yes, I've got an extra pen."), 3000);
+//   });
+// };
+
+// const askEugene = () => {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => reject("Eugene: Sorry, I only have one."), 1000);
+//   });
+// };
+
+// const askSusy = () => {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => resolve("Susy: Yes, I have a pen for you."), 2000);
+//   });
+// };
+// // Promise.race takes an array of values as an argument.
+// Promise.race([askJohn(), askEugene(), askSusy()])
+//   .then((value) => {
+//     // Unlike Promise.all, We have only 1 value here,
+//     // and it is the result of the fastest promise in the array.
+//     console.log(value);
+//   })
+//   .catch((reason) => {
+//     console.log("Rejected: " + reason);
+//   });
+// // Rejected: Eugene: Sorry, I only have one.
+
+// console.log(
+//   "---- Promise.any - Getting the first successful Promise response -----",
+// );
+// const askJohn = () => {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => resolve("John: Yes, I've got an extra pen."), 3000);
+//   });
+// };
+
+// const askEugene = () => {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => reject("Eugene: Sorry, I only have one."), 1000);
+//   });
+// };
+
+// const askSusy = () => {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => resolve("Susy: Yes, I have a pen for you."), 2000);
+//   });
+// };
+
+// Promise.any([askJohn(), askEugene(), askSusy()])
+//   .then((value) => {
+//     console.log(value);
+//   })
+//   .catch((reason) => {
+//     console.log("Rejected: " + reason);
+//   });
+// // Susy: Yes, I have a pen for you.
+
+console.log("---- Implementing Promise.race from scratch ------");
+
+//Promise.race([]);
+// Promise {<pending>}
+// [[Prototype]]: Promise
+// [[PromiseState]]: "pending"
+// [[PromiseResult]]: undefined
+
+//Promise.race([Promise.reject("Something went wrong"), 6, 8, true]);
+// Promise {<rejected>: 'Something went wrong'}
+// [[Prototype]]: Promise
+// [[PromiseState]]: "rejected"
+// [[PromiseResult]]: "Something went wrong"
+
+//creating our own Promise.race
+// const promiseRace = (arrayOfPromises) => {
+//   if (arrayOfPromises.length === 0) {
+//     return new Promise((resolve, reject) => {});
+//   }
+
+//   return new Promise((resolve, reject) => {
+//     arrayOfPromises.forEach((promise) => {
+//       if (promise instanceof Promise === false) {
+//         promise = Promise.resolve(promise);
+//       }
+
+//       promise.then((value) => {
+//         resolve(value);
+//       });
+//       promise.catch((reason) => {
+//         reject(reason);
+//       });
+//     });
+//   });
+// };
+
+// const getOne = () => {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => resolve(1), 1000);
+//   });
+// };
+
+// const getTwo = () => {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => resolve(2), 2000);
+//   });
+// };
+
+// const getThree = () => {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => resolve(3), 3000);
+//   });
+// };
+
+// promiseRace([getThree(), getTwo(), getOne()]).then((value) =>
+//   console.log(value),
+// );
+// // 1
+
+//creating our own Promise.any
+const promiseAny = (arrayOfPromises) => {
+  if (arrayOfPromises.length === 0) {
+    return Promise.reject(new AggregateError([], "All promises were rejected"));
+  }
+
+  const promiseRejections = [];
+
+  let rejectedPromisesCount = 0;
+
+  return new Promise((resolve, reject) => {
+    arrayOfPromises.forEach((promise, index) => {
+      if (promise instanceof Promise === false) {
+        promise = Promise.resolve(promise);
+      }
+
+      promise
+        .then((value) => {
+          resolve(value);
+        })
+        .catch((reason) => {
+          rejectedPromisesCount += 1;
+          promiseRejections[index] = reason;
+          if (rejectedPromisesCount === arrayOfPromises.length) {
+            reject(
+              new AggregateError(
+                promiseRejections,
+                "All promises were rejected",
+              ),
+            );
+          }
+        });
+    });
+  });
+};
+
+//promiseAny([]);
+// Promise {<rejected>: AggregateError: All promises were rejected
+// [[Prototype]]: Promise
+// [[PromiseState]]: "rejected"
+// [[PromiseResult]]: AggregateError: All promises were rejected...
+
+const getOne = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => reject(1), 1000);
+  });
+};
+
+const getTwo = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => resolve(2), 2000);
+  });
+};
+
+const getThree = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => resolve(3), 3000);
+  });
+};
+
+promiseAny([getThree(), getTwo(), getOne()]).then((value) =>
+  console.log(value),
+);
+// 2
+// the first one is rejected, so it returns 2, which is the first resolved promise
