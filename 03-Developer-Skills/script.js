@@ -83,22 +83,22 @@
 // // A) IDENTIFY
 // console.log(measureKelvin());
 
-console.log("-------- challenge: forecasted max temp -----------");
+console.log("-------- challenge 1: forecasted max temp, v.1 -----------");
 // create function latestForecast
 // iterate through array and prints out result as string interpolation
 // check for exceptions (not numbers in the array)
 
-const printForecast = function (arr) {
-  const validArr = arr.filter((value) => /^-?\d+\.?\d*$/.test(value));
+// const printForecast = function (arr) {
+//   const validArr = arr.filter((value) => /^-?\d+\.?\d*$/.test(value));
 
-  for (let i = 0; i < validArr.length; ++i) {
-    console.log(`... ${validArr[i]}°C in ${i + 1} days `);
-  }
+//   for (let i = 0; i < validArr.length; ++i) {
+//     console.log(`... ${validArr[i]}°C in ${i + 1} days `);
+//   }
 
-  return validArr;
-};
-printForecast([17, 21, 23]);
-printForecast([12, 5, -5, 0, 4, "error"]);
+//   return validArr;
+// };
+// printForecast([17, 21, 23]);
+// printForecast([12, 5, -5, 0, 4, "error"]);
 
 // ... 17°C in 1 days
 // ... 21°C in 2 days
@@ -108,3 +108,23 @@ printForecast([12, 5, -5, 0, 4, "error"]);
 // ... -5°C in 3 days
 // ... 0°C in 4 days
 // ... 4°C in 5 days
+
+console.log("-------- challenge 1: forecasted max temp, v.2 -----------");
+// create function latestForecast
+// iterate through array and prints out result as string interpolation
+// check for exceptions (not numbers in the array)
+
+const printForecast = function (arr) {
+  const validArr = arr.filter((value) => /^-?\d+\.?\d*$/.test(value));
+  let str = "";
+  for (let i = 0; i < validArr.length; ++i) {
+    str = str + `${arr[i]}°C in ${i + 1} days ... `;
+  }
+
+  console.log("... " + str);
+};
+printForecast([17, 21, 23]);
+printForecast([12, 5, -5, 0, 4, "error"]);
+
+// ... 17°C in 1 days ... 21°C in 2 days ... 23°C in 3 days ...
+// ... 12°C in 1 days ... 5°C in 2 days ... -5°C in 3 days ... 0°C in 4 days ... 4°C in 5 days ...
